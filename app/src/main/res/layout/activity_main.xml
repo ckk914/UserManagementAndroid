@@ -8,12 +8,46 @@
     tools:context=".LoginActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/welcomeMessage"
+        android:layout_width="412dp"
+        android:layout_height="44dp"
+        android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="408dp"
+        android:layout_height="40dp"
+        android:text="비밀번호"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="192dp" />
+
+    <TextView
+        android:id="@+id/passwordText"
+        android:layout_width="412dp"
+        android:layout_height="50dp"
+        android:text="textView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="238dp" />
+
+    <TextView
+        android:id="@+id/idText"
+        android:layout_width="410dp"
+        android:layout_height="63dp"
+        android:text="textView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="121dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="410dp"
+        android:layout_height="44dp"
+        android:text="아이디"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="72dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
