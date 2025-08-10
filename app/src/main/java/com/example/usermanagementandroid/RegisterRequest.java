@@ -13,8 +13,8 @@ public class RegisterRequest extends StringRequest {
     private Map<String,String> parameters;
 
     //생성자
-    public RegisterRequest(String userID, String userPassword, String userName, String userAge, Response.Listener<String> listener){
-    super(Method.POST,URL,listener,null); //해당 url로 post방식으로 데이터를 전송
+    public RegisterRequest(String userID, String userPassword, String userName, String userAge, Response.Listener<String> listener, Response.ErrorListener errorListener){
+    super(Method.POST,URL,listener,errorListener); //해당 url로 post방식으로 데이터를 전송
         parameters = new HashMap<>();
         parameters.put("userID",userID);
         parameters.put("userPassword",userPassword);

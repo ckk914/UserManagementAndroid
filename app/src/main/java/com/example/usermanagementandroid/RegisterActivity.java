@@ -83,7 +83,23 @@ public class RegisterActivity extends AppCompatActivity {
 
                     }
                 };
-                RegisterRequest registerRequest = new RegisterRequest(userID,userPassword,userName,userAge+"",responseListener);
+                RegisterRequest registerRequest =
+                        new RegisterRequest(
+                                userID,
+                                userPassword,
+                                userName,
+                                String.valueOf(userAge),
+                                responseListener,
+                                error -> {
+                                    error.printStackTrace();
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                                    builder.setMessage("서버 연결에 실패했습니다.")
+                                            .setNegativeButton("확인", null)
+                                            .create()
+                                            .show();
+                                }
+                        );
+
                 RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                 queue.add(registerRequest);
             }
