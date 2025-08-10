@@ -2,6 +2,7 @@ package com.example.usermanagementandroid;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         TextView idText       = (TextView) findViewById(R.id.idText);
         TextView passwordText = (TextView) findViewById(R.id.passwordText);
         TextView welcomeMessage = (TextView) findViewById(R.id.welcomeMessage);
+        Button managementButton = (Button) findViewById(R.id.managementButton);
+
 
         //인텐트로 넘어온 값 저장
         Intent intent = getIntent();
@@ -40,5 +43,8 @@ public class MainActivity extends AppCompatActivity {
         passwordText.setText(userPassword);
         welcomeMessage.setText(message);
 
+        if(!userID.equals("admin")){
+            managementButton.setEnabled(false);
+        }
     } //end onCreate
 }
