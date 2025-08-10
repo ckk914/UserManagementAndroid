@@ -2,6 +2,7 @@ package com.example.usermanagementandroid;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -44,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
         welcomeMessage.setText(message);
 
         if(!userID.equals("admin")){
-            managementButton.setEnabled(false);
+            //managementButton.setEnabled(false);  //단순 비활성
+            managementButton.setVisibility(View.GONE); //버튼 안보이게
         }
     } //end onCreate
 }
