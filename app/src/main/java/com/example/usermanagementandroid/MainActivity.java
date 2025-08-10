@@ -1,5 +1,6 @@
 package com.example.usermanagementandroid;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -25,8 +26,19 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        EditText idText       = (EditText) findViewById(R.id.idText);
-        EditText passwordText = (EditText) findViewById(R.id.passwordText);
+        TextView idText       = (TextView) findViewById(R.id.idText);
+        TextView passwordText = (TextView) findViewById(R.id.passwordText);
         TextView welcomeMessage = (TextView) findViewById(R.id.welcomeMessage);
+
+        //인텐트로 넘어온 값 저장
+        Intent intent = getIntent();
+        String userID = intent.getStringExtra("userID");
+        String userPassword = intent.getStringExtra("userPassword");
+        String message = "안녕하세요 "+userID+"님!";
+
+        idText.setText(userID);
+        passwordText.setText(userPassword);
+        welcomeMessage.setText(message);
+
     } //end onCreate
 }
