@@ -19,6 +19,12 @@ public class ManagementActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_management);
+        //UI를 변수에 할당
+        TextView userListTextView = (TextView) findViewById(R.id.userListTextView);
+        Intent intent = getIntent();
+        userListTextView.setText(intent.getStringExtra("userList"));// 넘어온 리스트 적용
+
+
 
     }
 }
