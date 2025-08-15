@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -12,18 +13,37 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.usermanagementandroid.Adapter.UserListAdapter;
+import com.example.usermanagementandroid.Entity.User;
+
+import java.util.ArrayList;
+import java.util.List;
+
 //로그인 성공하면 나오는 화면
 public class ManagementActivity extends AppCompatActivity {
+
+    private ListView listView;
+    private UserListAdapter userAdapter;
+    private List<User> userList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_management);
         //UI를 변수에 할당
-        TextView userListTextView = (TextView) findViewById(R.id.userListTextView);
         Intent intent = getIntent();
-        userListTextView.setText(intent.getStringExtra("userList"));// 넘어온 리스트 적용
 
+        //init
+        listView = (ListView) findViewById(R.id.userListView);
+        userList = new ArrayList<>();
+
+        userList.add(new User("id1","pw1","name1","age1"));
+        userList.add(new User("id2","pw2","name2","age2"));
+        userList.add(new User("id3","pw3","name3","age3"));
+        listView = findViewById(R.id.userListView);
+
+        userAdapter = new UserListAdapter(getApplicationContext(),userList);
+        listView.setAdapter(userAdapter); //리스트뷰에 어댑터 세팅함.
 
 
     }
