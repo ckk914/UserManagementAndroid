@@ -45,7 +45,7 @@ public class ManagementActivity extends AppCompatActivity {
         //        userList.add(new User("id3","pw3","name3","age3"));
         listView = findViewById(R.id.userListView);
 
-        userAdapter = new UserListAdapter(getApplicationContext(),userList);
+        userAdapter = new UserListAdapter(getApplicationContext(),userList,this);
         listView.setAdapter(userAdapter); //리스트뷰에 어댑터 세팅함.
 
         //DB user를 보기 위한 try
@@ -61,7 +61,8 @@ public class ManagementActivity extends AppCompatActivity {
                 userName = object.getString("userName");
                 userAge = object.getString("userAge");
                 User user = new User(userID,userPassword,userName,userAge);
-                userList.add(user);
+                if(!userID.equals("admin"))
+                    userList.add(user);
                 count++;
 
             }

@@ -1,24 +1,34 @@
 package com.example.usermanagementandroid.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+import com.example.usermanagementandroid.DeleteRequest;
 import com.example.usermanagementandroid.Entity.User;
 import com.example.usermanagementandroid.R;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
 public class UserListAdapter extends BaseAdapter {
     private Context context;
-    List<User> userList;
+    private List<User> userList;
+    private Activity parentActivity;
 
     //생성자
-    public UserListAdapter(Context context, List<User> userList) {
+    public UserListAdapter(Context context, List<User> userList, Activity parentActivity) {
         this.context = context;
         this.userList = userList;
+        this.parentActivity = parentActivity;
     }
 
     @Override
@@ -38,10 +48,10 @@ public class UserListAdapter extends BaseAdapter {
 
     //사용자에 대한 뷰를 보여줌
     @Override
-    public View getView(int i, View convertView, ViewGroup parent) {
+    public View getView(final int i, View convertView, ViewGroup parent) {
         //한명의 사용자에 대한 뷰 만듬
         View v = View.inflate(context, R.layout.user, null); //user.xml을 inflate
-        TextView userID = v.findViewById(R.id.userID);
+        final TextView userID = v.findViewById(R.id.userID);
         TextView userPassword = v.findViewById(R.id.userPassword);
         TextView userName = v.findViewById(R.id.userName);
         TextView userAge = v.findViewById(R.id.userAge);
@@ -52,6 +62,33 @@ public class UserListAdapter extends BaseAdapter {
         userAge.setText(userList.get(i).getUserAge());
 
         v.setTag(userList.get(i).getUserID());
+
+        Button deleteButton = v.findViewById(R.id.deleteButton);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            boolean success = jsonResponse.getBoolean("success");
+                            if (success) {
+                                userList.remove(i);
+                                notifyDataSetChanged();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+
+                // 서버 삭제 요청
+                DeleteRequest deleteRequest = new DeleteRequest(userID.getText().toString(), responseListener);
+                RequestQueue queue = Volley.newRequestQueue(context);
+                queue.add(deleteRequest);
+            }
+        });
 
         return v;
     }
