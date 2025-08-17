@@ -65,9 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         .setPositiveButton("확인",null)
                                         .create()
                                         .show();
-                                //회원 등록 액티비티 -> 로그인 액티비티로 넘어갈 수 있게 설정!
-                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);;
-                                RegisterActivity.this.startActivity(intent); // 해당 인텐트 실행
+                                finish();
                             }else{
                                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                                 builder.setMessage("회원 등록에 실패했습니다.")
