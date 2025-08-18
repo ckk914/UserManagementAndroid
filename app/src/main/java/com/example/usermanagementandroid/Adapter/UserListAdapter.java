@@ -22,13 +22,16 @@ import java.util.List;
 public class UserListAdapter extends BaseAdapter {
     private Context context;
     private List<User> userList;
+
     private Activity parentActivity;
 
+    private List<User> saveList;
     //생성자
-    public UserListAdapter(Context context, List<User> userList, Activity parentActivity) {
+    public UserListAdapter(Context context, List<User> userList, Activity parentActivity, List<User> saveList) {
         this.context = context;
         this.userList = userList;
         this.parentActivity = parentActivity;
+        this.saveList = saveList;
     }
 
     @Override
@@ -75,6 +78,13 @@ public class UserListAdapter extends BaseAdapter {
                             boolean success = jsonResponse.getBoolean("success");
                             if (success) {
                                 userList.remove(i);
+                                for(int i=0; i<saveList.size(); i++){
+                                 if(saveList.get(i).getUserID().equals(userID.getText().toString()))
+                                 {
+                                     saveList.remove(i);
+                                     break;
+                                 }
+                                }
                                 notifyDataSetChanged();
                             }
                         } catch (Exception e) {

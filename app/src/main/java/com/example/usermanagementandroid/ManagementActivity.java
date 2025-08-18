@@ -2,8 +2,10 @@ package com.example.usermanagementandroid;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,6 +30,7 @@ public class ManagementActivity extends AppCompatActivity {
     private ListView listView;
     private UserListAdapter userAdapter;
     private List<User> userList;
+    private List<User> saveList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +42,15 @@ public class ManagementActivity extends AppCompatActivity {
         //init
         listView = (ListView) findViewById(R.id.userListView);
         userList = new ArrayList<>();
+        saveList = new ArrayList<>();
+
         //테스트용 데이터 주석
         //        userList.add(new User("id1","pw1","name1","age1"));
         //        userList.add(new User("id2","pw2","name2","age2"));
         //        userList.add(new User("id3","pw3","name3","age3"));
         listView = findViewById(R.id.userListView);
 
-        userAdapter = new UserListAdapter(getApplicationContext(),userList,this);
+        userAdapter = new UserListAdapter(getApplicationContext(),userList,this,saveList);
         listView.setAdapter(userAdapter); //리스트뷰에 어댑터 세팅함.
 
         //DB user를 보기 위한 try
@@ -61,8 +66,10 @@ public class ManagementActivity extends AppCompatActivity {
                 userName = object.getString("userName");
                 userAge = object.getString("userAge");
                 User user = new User(userID,userPassword,userName,userAge);
-                if(!userID.equals("admin"))
+                if(!userID.equals("admin")) {
                     userList.add(user);
+                    saveList.add(user);
+                }
                 count++;
 
             }
@@ -70,5 +77,35 @@ public class ManagementActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        EditText search = findViewById(R.id.search);
+        search.addTextChangedListener(new android.text.TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            //안에 내용 바뀔때 마다 실행됨.
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                searchUser(s.toString());
+            }
+        });
+
+    }
+
+    public void searchUser(String search){
+        userList.clear();
+        for(User user : saveList){
+            if(user.getUserID().contains(search)){
+                userList.add(user);
+            }
+        }
+        userAdapter.notifyDataSetChanged(); //값 변경을 알림
     }
 }
